@@ -46,7 +46,7 @@ Web Shoe Store is a full-cycle e-commerce platform designed for shoe retailers. 
 
 | 🔨 Layer        | 🛠️ Technology                               |
 | --------------- | -------------------------------------------- |
-| 🖥️ Front-end   | ReactJS, TypeScript, HTML5, CSS, Bootstrap   |
+| 🖥️ Front-end   | HTML5, CSS, Bootstrap   |
 | 🔙 Back-end     | ASP .NET Core MVC, FastAPI (Chatbot API)     |
 | 🗄️ Database    | Microsoft SQL Server                         |
 | 🧠 AI & Chatbot | Google Cloud AI (Dialogflow / Generative AI) |
