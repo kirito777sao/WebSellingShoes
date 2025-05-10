@@ -1,0 +1,265 @@
+﻿@model IEnumerable<OrderModel>
+
+@{
+    ViewData["Title"] = "List Orders History: " + @ViewBag.UserEmail;
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Sử dụng layout chung để kế thừa các tài nguyên Bootstrap
+}
+
+<!-- Thêm CSS tùy chỉnh để cải thiện giao diện -->
+<style>
+    .order-history-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        padding: 40px 0;
+    }
+
+    .order-history-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+        .order-history-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 15px;
+        }
+
+        .order-history-card h4 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #6c757d;
+            margin-bottom: 25px;
+        }
+
+    .table thead {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+        .table thead th {
+            font-weight: 600;
+            border: none;
+        }
+
+    .table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+    .table tbody td {
+        vertical-align: middle;
+    }
+
+    /* Tùy chỉnh badge cho trạng thái và phương thức thanh toán */
+    .badge-status, .badge-payment {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+        border-radius: 12px;
+    }
+
+        .badge-status.new {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .badge-status.cancelled {
+            background-color: #dc3545;
+            color: #fff;
+        }
+
+        .badge-status.delivered {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .badge-payment.cod {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .badge-payment.vnpay, .badge-payment.momo {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        .badge-payment.unknown {
+            background-color: #6c757d;
+            color: #fff;
+        }
+
+    /* Tùy chỉnh nút Hủy đơn hàng */
+    .btn-cancel {
+        background-color: #dc3545;
+        border: none;
+        padding: 8px 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-cancel:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel i {
+            margin-right: 5px;
+        }
+
+    /* Thông báo khi danh sách trống */
+    .empty-message {
+        text-align: center;
+        padding: 40px 0;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .empty-message h4 {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .empty-message a {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 30px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+            .empty-message a:hover {
+                background-color: #0056b3;
+            }
+
+    /* Responsive */
+    media (max-width: 576px) {
+        .order-history-card
+
+    {
+        padding: 20px;
+    }
+
+    .order-history-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .order-history-card h4 {
+        font-size: 1.1rem;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .btn-cancel {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    }
+</style>
+
+<section class="order-history-section">
+    <div class="container">
+        <div class="order-history-card">
+            <h3>Lịch sử đơn hàng của: @ViewBag.UserName</h3>
+            <h4>Email: @ViewBag.UserEmail</h4>
+
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Mã đơn hàng</th>
+                                <th>Phí vận chuyển</th>
+                                <th>Mã giảm giá</th>
+                                <th>Tên người dùng</th>
+                                <th>Trạng thái</th>
+                                <th>Phương thức thanh toán</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.OrderCode</td>
+                                    <td>@item.ShippingCost.ToString("#,##0 đ")</td>
+                                    <td>@item.CouponCode</td>
+                                    <td>@item.UserName</td>
+                                    <td>
+                                        @if (item.Status == 1)
+                                        {
+                                            <span class="badge badge-status new">Đơn hàng mới</span>
+                                        }
+                                        else if (item.Status == 2)
+                                        {
+                                            <span class="badge badge-status cancelled">Đã hủy</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-status delivered">Đã giao hàng</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.PaymentMethod?.Contains("COD") ?? false)
+                                        {
+                                            <span class="badge badge-payment cod">COD</span>
+                                        }
+                                        else if (item.PaymentMethod?.Contains("VnPay") ?? false)
+                                        {
+                                            <span class="badge badge-payment vnpay">VnPay</span>
+                                        }
+                                        else if (item.PaymentMethod?.Contains("Momo") ?? false)
+                                        {
+                                            <span class="badge badge-payment momo">Momo</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-payment unknown">Unknown</span>
+                                        }
+                                    </td>
+                                    <td>@item.CreateDate.ToString("dd-MM-yyyy")</td>
+                                    <td>
+                                        @if (item.Status != 0)
+                                        {
+                                            <a onclick="return confirm('Bạn xác nhận muốn hủy?')" class="btn btn-cancel" asp-action="CancelOrder" asp-controller="Account" asp-route-ordercode="@item.OrderCode">
+                                                <i class="fas fa-times"></i> Hủy đơn hàng
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-message">
+                    <h4>Chưa có đơn hàng nào!</h4>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Tiếp tục mua sắm</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <!-- Đảm bảo Font Awesome được bao gồm để sử dụng icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

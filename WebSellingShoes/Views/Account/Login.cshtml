@@ -1,0 +1,161 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 40px 0;
+    }
+
+    .form-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+        .form-card h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+    .form-group label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .btn-login {
+        background-color: #28a745;
+        border: none;
+        padding: 10px 30px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-login:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        padding: 10px 20px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        margin-left: 10px;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+    .btn-google {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        color: #333;
+        padding: 10px 20px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        margin-left: 10px;
+    }
+
+        .btn-google:hover {
+            background-color: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .btn-google i {
+            margin-right: 8px;
+            color: #4285F4;
+        }
+
+    .text-danger {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    media (max-width: 576px) {
+        .form-card
+
+    {
+        padding: 20px;
+    }
+
+    .form-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .btn-login, .btn-secondary, .btn-google {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+
+    }
+</style>
+
+<section class="form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="form-card">
+                    <h2>Login to Your Account</h2>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <form asp-action="Login" asp-controller="Account">
+                        <div class="form-group mb-3">
+                            <label asp-for="UserName" class="control-label"></label>
+                            <input asp-for="UserName" class="form-control" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-login">Login</button>
+                            <a asp-action="Create" asp-controller="Account" class="btn btn-secondary">Register</a>
+                            <a asp-action="ForgotPass" asp-controller="Account" class="btn btn-secondary">Forget Pass</a>
+                            <a asp-action="LoginByGoogle" asp-controller="Account" class="btn btn-google">
+                                <i class="fab fa-google"></i> Login Google
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

@@ -1,0 +1,120 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityRole>
+
+@{
+    ViewData["title"] = "List Role";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["title"]</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .table {
+            width: 100% !important;
+        }
+
+        .btn-sm {
+            transition: all 0.2s;
+        }
+
+            .btn-sm:hover {
+                transform: translateY(-1px);
+            }
+
+        .container-fluid {
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid py-5">
+        <div class="card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h3 class="mb-0">List Role</h3>
+                <a class="btn btn-success btn-sm" asp-action="Create" asp-controller="AppRoles">
+                    <i class="bi bi-plus-circle me-1"></i> Add Role
+                </a>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                
+                @* <div class="input-group" style="max-width: 300px;">
+                    <input type="text" class="form-control" placeholder="Search roles..." id="searchInput">
+                    <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
+                </div> *@
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover w-100" id="myTable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Role Name</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.NormalizedName</td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm me-1" asp-action="Edit" asp-controller="AppRoles" asp-route-Id="@item.Id">
+                                        <i class="bi bi-pencil"></i> Edit
+                                    </a>
+                                    <a class="btn btn-danger btn-sm confirmDeletion" asp-action="Delete" asp-controller="AppRoles" asp-route-Id="@item.Id">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.js"></script>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function () {
+            let searchValue = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#myTable tbody tr');
+            rows.forEach(row => {
+                let cells = row.querySelectorAll('td');
+                let match = false;
+                cells.forEach(cell => {
+                    if (cell.textContent.toLowerCase().includes(searchValue)) {
+                        match = true;
+                    }
+                });
+                row.style.display = match ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

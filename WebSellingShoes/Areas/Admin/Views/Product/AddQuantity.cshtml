@@ -1,0 +1,76 @@
+﻿@model ProductSizeModel
+
+@{
+    ViewData["title"] = "Add Product Quantity";
+    decimal total_quantities = 0;
+    decimal key = 1;
+}
+
+<div class="card shadow-sm">
+    <div class="card-header bg-white d-flex justify-content-between align-items-center">
+        <h3 class="card-title mb-0">Add Product Quantity</h3>
+        <a class="btn btn-outline-danger btn-sm" asp-action="Index" asp-controller="Product">
+            <i class="fas fa-arrow-left me-1"></i> Back to List
+        </a>
+    </div>
+    <div class="card-body">
+        <form asp-action="UpdateMoreQuantity" asp-controller="Product" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" name="ProductId" value="@ViewBag.Id" />
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label asp-for="Size" class="form-label fw-semibold"></label>
+                    <input asp-for="Size" class="form-control" placeholder="e.g., 39, 40, 41, ..." />
+                    <span asp-validation-for="Size" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label asp-for="Quantity" class="form-label fw-semibold"></label>
+                    <input asp-for="Quantity" class="form-control" type="number" min="1" max="10000" value="1" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">
+                <i class="fas fa-save me-1"></i> Add Quantity
+            </button>
+        </form>
+
+        <h4 class="mt-4 mb-3">Existing Product Quantities</h4>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Size</th>
+                        <th>Quantity Added</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var productQuantity in ViewBag.ProductByQuantity)
+                    {
+                        total_quantities += productQuantity.Quantity;
+                        <tr>
+                            <td>@key</td>
+                            <td>@productQuantity.Size</td>
+                            <td>@productQuantity.Quantity</td>
+                            <td>@productQuantity.DateCreated</td>
+                        </tr>
+                        key++;
+                    }
+                    <tr>
+                        <td colspan="4" class="fw-bold">Total Quantities: @total_quantities</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+}

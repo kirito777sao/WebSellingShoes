@@ -1,0 +1,130 @@
+﻿@model AppUserModel
+@{
+    ViewData["title"] = "Forgot Password";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 40px 0;
+    }
+
+    .form-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+    }
+
+        .form-card h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+    .form-group label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+
+    .btn-send {
+        background-color: #007bff;
+        border: none;
+        padding: 10px 30px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-send:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border: none;
+        padding: 10px 20px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+        margin-left: 10px;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+    .text-danger {
+        font-size: 0.9rem;
+        margin-top: 5px;
+    }
+
+    media (max-width: 576px) {
+        .form-card
+
+    {
+        padding: 20px;
+    }
+
+    .form-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-control {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .btn-send, .btn-secondary {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+
+    }
+</style>
+
+<section class="form-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="form-card">
+                    <h2>Forgot Password</h2>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <form asp-action="SendMailForgotPass" asp-controller="Account">
+                        <div class="form-group mb-4">
+                            <label>Email</label>
+                            <input asp-for="Email" placeholder="Enter your registered email to reset your password" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-send">Send</button>
+                            <a asp-action="Create" asp-controller="Account" class="btn btn-secondary">Register</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

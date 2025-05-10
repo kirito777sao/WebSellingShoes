@@ -1,0 +1,141 @@
+﻿
+@model StatisticalModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<div class="row">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <h5>Bảng thống kê doanh thu</h5>
+            <ul>
+                <li>Tổng đơn hàng: @ViewBag.CountOrder</li>
+                <li>Tổng sản phẩm: @ViewBag.CountProduct</li>
+                <li>Tổng danh mục sản phẩm: @ViewBag.CountCategory</li>
+                <li>Tổng khách hàng: @ViewBag.CountUser</li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>Lọc Dữ Liệu Theo</h4>
+                    <select class="filter-select form-control">
+                        <option value="">---Chọn khoảng thời gian---</option>
+                        <option value="7">7 Ngày trước</option>
+                        <option value="30">Tháng qua</option>
+                        <option value="90">3 Tháng trước</option>
+                        <option value="365">1 Năm</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <h4>Tùy chọn:</h4>
+                    <label>Từ Ngày</label>
+                    <input type="date" id="date_from" class="form-control" />
+                    <label>Đến Ngày</label>
+                    <input type="date" id="date_to" class="form-control" />
+                    <button id="filterButton" class="btn btn-primary mt-2">Lọc</button>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <h3>Biểu đồ thống kê</h3>
+                <div id="myfirstchart" style="height: 250px;"></div>
+                <p id="chartMessage" class="text-muted mt-2"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Initialize Morris Chart
+            var ChartMorris = new Morris.Bar({
+                element: 'myfirstchart',
+                data: [],
+                xkey: 'date',
+                ykeys: ['revenue', 'quantity'],
+                labels: ['Doanh thu', 'Số lượng'],
+                xLabelFormat: function (x) {
+                    return new Date(x.label).toLocaleDateString('vi-VN');
+                },
+                resize: true,
+                barColors: ['#007bff', '#28a745']
+            });
+
+            // Function to update chart message
+            function setChartMessage(message) {
+                $("#chartMessage").text(message);
+            }
+
+            // Function to fetch and update chart data
+            function updateChart(url, data) {
+                console.log("Sending request to:", url, "with data:", data);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    success: function (response) {
+                        console.log("Received response:", response);
+                        if (response && Array.isArray(response) && response.length > 0) {
+                            ChartMorris.setData(response);
+                            setChartMessage(`Hiển thị ${response.length} ngày dữ liệu`);
+                        } else {
+                            ChartMorris.setData([]);
+                            setChartMessage("Không tìm thấy dữ liệu trong khoảng thời gian này");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("AJAX error:", xhr.responseText || error);
+                        ChartMorris.setData([]);
+                        setChartMessage("Lỗi khi tải dữ liệu. Vui lòng thử lại.");
+                    }
+                });
+            }
+
+            // Initial chart data load
+            updateChart("@Url.Action("GetChartData", "Dashboard")", {});
+
+            // Filter by predefined periods
+            $('.filter-select').on('change', function () {
+                var days = $(this).val();
+                if (!days) {
+                    setChartMessage("");
+                    updateChart("@Url.Action("GetChartData", "Dashboard")", {});
+                    return;
+                }
+
+                updateChart("@Url.Action("GetChartDataBySelect", "Dashboard")", {
+                    days: parseInt(days)
+                });
+            });
+
+            // Filter by custom date range
+            $("#filterButton").click(function () {
+                var fromDate = $("#date_from").val();
+                var toDate = $("#date_to").val();
+
+                if (!fromDate || !toDate) {
+                    alert("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.");
+                    return;
+                }
+
+                if (new Date(fromDate) > new Date(toDate)) {
+                    alert("Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc.");
+                    return;
+                }
+
+                updateChart("@Url.Action("FilterData", "Dashboard")", {
+                    startDate: fromDate,
+                    endDate: toDate
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,153 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Code_All\\Test_web\\WebSellingShoes\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\wwwroot\\css\\chatbot.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:wwwroot\\css\\chatbot.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\wwwroot\\js\\chatbot.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:wwwroot\\js\\chatbot.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\chatbotapi\\app.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:chatbotapi\\app.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\chatbotapi\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:chatbotapi\\.env||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\chatbotapi\\requirements.txt||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:chatbotapi\\requirements.txt||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|d:\\code_all\\test_web\\websellingshoes\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{27FB5558-79FA-4551-8AF3-53091C43F67F}|WebSellingShoes.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "chatbot.js",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\wwwroot\\js\\chatbot.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\chatbot.js",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\wwwroot\\js\\chatbot.js",
+              "RelativeToolTip": "wwwroot\\js\\chatbot.js",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAACoAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-05-05T21:27:27.307Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "chatbot.css",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\wwwroot\\css\\chatbot.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\chatbot.css",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\wwwroot\\css\\chatbot.css",
+              "RelativeToolTip": "wwwroot\\css\\chatbot.css",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAAAIgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-05-05T21:26:59.523Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "app.py",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\ChatbotAPI\\app.py",
+              "RelativeDocumentMoniker": "ChatbotAPI\\app.py",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\ChatbotAPI\\app.py",
+              "RelativeToolTip": "ChatbotAPI\\app.py",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMgAAABpAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2025-05-05T20:04:38.271Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": ".env",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\ChatbotAPI\\.env",
+              "RelativeDocumentMoniker": "ChatbotAPI\\.env",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\ChatbotAPI\\.env",
+              "RelativeToolTip": "ChatbotAPI\\.env",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-05-05T20:03:44.079Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "requirements.txt",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\ChatbotAPI\\requirements.txt",
+              "RelativeDocumentMoniker": "ChatbotAPI\\requirements.txt",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\ChatbotAPI\\requirements.txt",
+              "RelativeToolTip": "ChatbotAPI\\requirements.txt",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003109|",
+              "WhenOpened": "2025-05-05T19:54:08.344Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "launchSettings.json",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\Properties\\launchSettings.json",
+              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\Properties\\launchSettings.json",
+              "RelativeToolTip": "Properties\\launchSettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-05T19:49:51.918Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-05-05T19:44:06.855Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "D:\\Code_All\\Test_web\\WebSellingShoes\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "D:\\Code_All\\Test_web\\WebSellingShoes\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAJkAAAAAAAAAAAAQwKAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-04-22T11:45:38.657Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

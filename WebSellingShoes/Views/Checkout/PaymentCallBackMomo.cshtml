@@ -1,0 +1,32 @@
+﻿@using WebSellingShoes.Models.Momo
+@model MomoExecuteResponseModel
+
+@{
+    ViewData["Title"] = "Kết quả thông tin giao dịch thanh toán Momo thành công";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h2 class="text-center">Thanh toán VnPay thành công</h2>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h5><strong>OrderId:</strong> @Model.OrderId</h5>
+                    </div>
+                    <div class="mb-3">
+                        <h5><strong>OrderInfo:</strong> @Model.OrderInfo</h5>
+                    </div>
+                    <div class="mb-3">
+                        <h5><strong>Tổng tiền:</strong> @Model.Amount</h5>
+                    </div>                    
+                    <div class="text-center">
+                        <a asp-controller="Account" asp-action="History" class="btn btn-primary">Xem Lịch sử đơn hàng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<CategoryModel>
+
+@foreach (var item in Model)
+{
+    @if (item.Status == 1) // Chỉ hiển thị nếu trạng thái là Hiển Thị
+    {
+        <div class="panel panel-default category-item">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a asp-action="Index" asp-controller="Category" asp-route-Slug="@item.Slug">
+                        <i class="fas fa-chevron-right me-2"></i> @item.Name
+                    </a>
+                </h4>
+            </div>
+        </div>
+    }
+}

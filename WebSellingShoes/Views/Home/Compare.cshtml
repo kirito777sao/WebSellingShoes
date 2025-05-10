@@ -1,0 +1,326 @@
+﻿@{
+    ViewData["title"] = "Danh sách so sánh";
+    var products = Model as List<CompareModel> ?? new List<CompareModel>();
+    var product1 = products.Count > 0 ? products[0] : null;
+    var product2 = products.Count > 1 ? products[1] : null;
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Sử dụng layout chung để kế thừa các tài nguyên Bootstrap
+}
+
+<!-- Thêm CSS tùy chỉnh để cải thiện giao diện -->
+<style>
+    .compare-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        padding: 40px 0;
+    }
+
+    .compare-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+        .compare-card h3 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+    .compare-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .compare-table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+            .compare-table thead th {
+                font-weight: 600;
+                border: none;
+                padding: 12px;
+                text-align: center;
+            }
+
+        .compare-table tbody tr {
+            transition: background-color 0.3s ease;
+        }
+
+            .compare-table tbody tr:hover {
+                background-color: #f1f3f5;
+            }
+
+        .compare-table tbody td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    /* Tùy chỉnh cột ảnh */
+    .product-image {
+        width: 100px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        transition: transform 0.3s ease;
+        display: block;
+        margin: 0 auto;
+        position: relative; /* Đảm bảo ảnh nằm trong flow của bảng */
+    }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+    /* Đảm bảo ảnh không bị ảnh hưởng bởi style bên ngoài */
+    .compare-table td img.product-image {
+        position: relative !important; /* Ghi đè bất kỳ position: absolute nào từ CSS bên ngoài */
+        float: none !important; /* Ghi đè bất kỳ float nào */
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    /* Tùy chỉnh chênh lệch giá */
+    .price-difference {
+        font-weight: 500;
+        color: #dc3545;
+    }
+
+    /* Tùy chỉnh nút */
+    .btn-remove {
+        background-color: #dc3545;
+        border: none;
+        padding: 8px 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-remove:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+    .btn-details {
+        background-color: #007bff;
+        border: none;
+        padding: 8px 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-details:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    .btn i {
+        margin-right: 5px;
+    }
+
+    /* Thông báo khi danh sách trống */
+    .empty-message {
+        text-align: center;
+        padding: 40px 0;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .empty-message p {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .empty-message a {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 30px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+            .empty-message a:hover {
+                background-color: #0056b3;
+            }
+
+    /* Responsive */
+    media (max-width: 576px) {
+        .compare-card
+
+    {
+        padding: 20px;
+    }
+
+    .compare-card h3 {
+        font-size: 1.5rem;
+    }
+
+    .compare-table {
+        font-size: 0.9rem;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 120px;
+    }
+
+    .btn-remove, .btn-details {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    }
+</style>
+
+<section class="compare-section">
+    <div class="container">
+        <div class="compare-card">
+            <h3>Danh sách so sánh</h3>
+
+            @if (!products.Any())
+            {
+                <div class="empty-message">
+                    <p>Chưa có sản phẩm nào trong danh sách so sánh!</p>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Tiếp tục mua sắm</a>
+                </div>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th>Tiêu chí</th>
+                                <th>Sản phẩm 1</th>
+                                <th>Sản phẩm 2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tên sản phẩm</td>
+                                <td>@product1?.Product?.Name</td>
+                                <td>@product2?.Product?.Name</td>
+                            </tr>
+                            <tr>
+                                <td>Mô tả</td>
+                                <td>@Html.Raw(product1?.Product?.Description)</td>
+                                <td>@Html.Raw(product2?.Product?.Description)</td>
+                            </tr>
+                            <tr>
+                                <td>Giá</td>
+                                <td>@(product1?.Product?.Price.ToString("#,##0 VNĐ") ?? "N/A")</td>
+                                <td>@(product2?.Product?.Price.ToString("#,##0 VNĐ") ?? "N/A")</td>
+                            </tr>
+                            <tr>
+                                <td>Chênh lệch giá</td>
+                                <td colspan="2">
+                                    @if (product1?.Product != null && product2?.Product != null)
+                                    {
+                                        var priceDifference = product1.Product.Price - product2.Product.Price;
+                                        <span class="price-difference">@priceDifference.ToString("#,##0 VNĐ")</span>
+                                    }
+                                    else
+                                    {
+                                        <span>N/A</span>
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hình ảnh</td>
+                                <td>
+                                    @if (product1?.Product?.Image != null)
+                                    {
+                                        <img src="@Url.Content("~/media/products/" + product1.Product.Image)" alt="Hình ảnh sản phẩm" class="product-image" />
+                                    }
+                                </td>
+                                <td>
+                                    @if (product2?.Product?.Image != null)
+                                    {
+                                        <img src="@Url.Content("~/media/products/" + product2.Product.Image)" alt="Hình ảnh sản phẩm" class="product-image" />
+                                    }
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hành động</td>
+                                <td>
+                                    @if (product1 != null)
+                                    {
+                                        <button class="btn btn-remove delete-compare" data-product_id="@product1.ProductId">
+                                            <i class="fas fa-trash"></i> Xóa
+                                        </button>
+                                        <a asp-action="Details" asp-controller="Product" asp-route-Id="@product1.ProductId" class="btn btn-details">
+                                            <i class="fas fa-eye"></i> Chi tiết
+                                        </a>
+                                    }
+                                </td>
+                                <td>
+                                    @if (product2 != null)
+                                    {
+                                        <button class="btn btn-remove delete-compare" data-product_id="@product2.ProductId">
+                                            <i class="fas fa-trash"></i> Xóa
+                                        </button>
+                                        <a asp-action="Details" asp-controller="Product" asp-route-Id="@product2.ProductId" class="btn btn-details">
+                                            <i class="fas fa-eye"></i> Chi tiết
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).ready(function () {
+            $('.delete-compare').click(function () {
+                var productId = $(this).data("product_id");
+
+                if (!productId) {
+                    Swal.fire("Lỗi", "Không tìm thấy ID sản phẩm.", "error");
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteCompare", "Home")",
+                    data: { Id: productId },
+                    headers: {
+                        "X-CSRF-TOKEN": $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    success: function (result) {
+                        if (result.success) {
+                            Swal.fire("Thành công", result.message, "success").then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire("Lỗi", result.message, "error");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseText);
+                        Swal.fire("Lỗi", "Đã xảy ra lỗi khi xóa sản phẩm khỏi danh sách so sánh.", "error");
+                    }
+                });
+            });
+        });
+    </script>
+    <!-- Đảm bảo Font Awesome được bao gồm để sử dụng icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

@@ -1,0 +1,35 @@
+﻿@* <div class="left-sidebar">
+	<h2>Category</h2>
+	<div class="panel-group category-products" id="accordian">
+		<!--category-productsr-->
+		<vc:categories></vc:categories>
+				
+	</div><!--/category-products-->
+	<h2>Brands</h2>
+	<div class="panel-group category-products" id="accordian">
+		<!--brands_products-->
+		<vc:brands></vc:brands>
+	</div><!--/brands_products-->
+
+</div> *@
+<div class="left-sidebar">
+    <!-- Danh mục sản phẩm -->
+    <div class="sidebar-section">
+        <h2 class="sidebar-title">
+            <i class="fas fa-list-ul me-2"></i> Danh mục
+        </h2>
+        <div class="panel-group category-products">
+            <vc:categories></vc:categories>
+        </div>
+    </div>
+
+    <!-- Thương hiệu -->
+    <div class="sidebar-section">
+        <h2 class="sidebar-title">
+            <i class="fas fa-tags me-2"></i> Thương hiệu
+        </h2>
+        <div class="panel-group category-products">
+            <vc:brands></vc:brands>
+        </div>
+    </div>
+</div>

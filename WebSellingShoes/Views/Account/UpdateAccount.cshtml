@@ -1,0 +1,208 @@
+﻿@model AppUserModel
+@{
+    ViewData["Title"] = "Update Account Info";
+}
+
+<!-- Thêm CSS tùy chỉnh để cải thiện giao diện -->
+<style>
+    .update-account-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding: 40px 0;
+    }
+
+    .update-account-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+        .update-account-card h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+    .form-group {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .form-group label {
+            font-weight: 500;
+            color: #495057;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-group .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 12px 15px;
+            padding-left: 40px; /* Để chừa chỗ cho icon */
+            font-size: 0.95rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .form-group .form-control:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+                outline: none;
+            }
+
+            .form-group .form-control[readonly] {
+                background-color: #e9ecef;
+                cursor: not-allowed;
+            }
+
+        /* Thêm icon vào trường nhập liệu */
+        .form-group .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 38px; /* Điều chỉnh để căn giữa icon */
+            color: #6c757d;
+            font-size: 1rem;
+        }
+
+    /* Tùy chỉnh thông báo lỗi */
+    .text-danger {
+        font-size: 0.85rem;
+        color: #dc3545;
+        margin-top: 5px;
+        display: block;
+    }
+
+    /* Tùy chỉnh nút */
+    .btn-save {
+        background-color: #28a745;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-save:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+    .btn-back {
+        background-color: #6c757d;
+        border: none;
+        padding: 12px 30px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+
+    .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    /* Responsive */
+    media (max-width: 576px) {
+        .update-account-card
+
+    {
+        padding: 20px;
+    }
+
+    .update-account-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .button-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-save, .btn-back {
+        width: 100%;
+    }
+
+    }
+</style>
+
+<section id="form" class="update-account-section">
+    <div class="container">
+        <div class="update-account-card">
+            <h2>Cập nhật thông tin tài khoản</h2>
+            <form autocomplete="off" asp-action="UpdateInfoAccount" asp-controller="Account" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div asp-validation-summary="ModelOnly" class="text-danger text-center mb-3"></div>
+
+                <!-- UserName -->
+                <div class="form-group">
+                    <label asp-for="UserName" class="control-label">Tên người dùng</label>
+                    <i class="fas fa-user input-icon"></i>
+                    <input asp-for="UserName" readonly class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+
+                <!-- Email -->
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label">Email</label>
+                    <i class="fas fa-envelope input-icon"></i>
+                    <input asp-for="Email" readonly class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <!-- PhoneNumber -->
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label">Số điện thoại</label>
+                    <i class="fas fa-phone input-icon"></i>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+
+                <!-- Old Password -->
+                <div class="form-group">
+                    <label class="control-label">Mật khẩu cũ</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="oldPassword" class="form-control" />
+                </div>
+
+                <!-- New Password -->
+                <div class="form-group">
+                    <label class="control-label">Mật khẩu mới</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="newPassword" class="form-control" />
+                </div>
+
+                <!-- Confirm New Password -->
+                <div class="form-group">
+                    <label class="control-label">Xác nhận mật khẩu mới</label>
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" name="confirmNewPassword" class="form-control" />
+                </div>
+
+                <!-- Buttons -->
+                <div class="button-group">
+                    <button type="submit" class="btn btn-success btn-save">Lưu</button>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-back">Quay lại</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <!-- Đảm bảo Font Awesome được bao gồm để sử dụng icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

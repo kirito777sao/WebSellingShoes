@@ -1,0 +1,255 @@
+﻿@model IEnumerable<WishlistModel>
+@{
+    ViewData["Title"] = "List Wishlist";
+    var key = 0;
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Sử dụng layout chung để kế thừa các tài nguyên Bootstrap
+}
+
+<!-- Thêm CSS tùy chỉnh để cải thiện giao diện -->
+<style>
+    .wishlist-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+        padding: 40px 0;
+    }
+
+    .wishlist-card {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+
+        .wishlist-card h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #2d3436;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+    .table thead {
+        background-color: #007bff;
+        color: #fff;
+    }
+
+        .table thead th {
+            font-weight: 600;
+            border: none;
+        }
+
+    .table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+
+        .table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+    .table tbody td {
+        vertical-align: middle;
+    }
+
+    /* Tùy chỉnh cột ảnh */
+    .product-image {
+        width: 100px;
+        height: 125px;
+        object-fit: cover;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        transition: transform 0.3s ease;
+        display: block; /* Đảm bảo ảnh không bị ảnh hưởng bởi inline */
+        position: relative; /* Đảm bảo ảnh nằm trong flow của bảng */
+    }
+
+        .product-image:hover {
+            transform: scale(1.05);
+        }
+
+    /* Đảm bảo ảnh không bị ảnh hưởng bởi style bên ngoài */
+    .table td img.product-image {
+        position: relative !important; /* Ghi đè bất kỳ position: absolute nào từ CSS bên ngoài */
+        float: none !important; /* Ghi đè bất kỳ float nào */
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    /* Tùy chỉnh nút */
+    .btn-remove {
+        background-color: #dc3545;
+        border: none;
+        padding: 8px 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-remove:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+    .btn-details {
+        background-color: #007bff;
+        border: none;
+        padding: 8px 15px;
+        font-weight: 500;
+        border-radius: 8px;
+        transition: background-color 0.3s ease, transform 0.1s ease;
+    }
+
+        .btn-details:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    .btn i {
+        margin-right: 5px;
+    }
+
+    /* Thông báo khi danh sách trống */
+    .empty-message {
+        text-align: center;
+        padding: 40px 0;
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+        .empty-message h4 {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .empty-message a {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 30px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+
+            .empty-message a:hover {
+                background-color: #0056b3;
+            }
+
+    /* Responsive */
+    media (max-width: 576px) {
+        .wishlist-card
+
+    {
+        padding: 20px;
+    }
+
+    .wishlist-card h2 {
+        font-size: 1.5rem;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .product-image {
+        width: 80px;
+        height: 100px;
+    }
+
+    .btn-remove, .btn-details {
+        padding: 6px 10px;
+        font-size: 0.85rem;
+    }
+
+    }
+</style>
+
+<section class="wishlist-section">
+    <div class="container">
+        <div class="wishlist-card">
+            <h2>Danh sách yêu thích</h2>
+
+            @if (Model.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table" id="myTable">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Mô tả</th>
+                                <th>Giá</th>
+                                <th>Hình ảnh</th>
+                                <th>Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var wishlist_product in Model)
+                            {
+                                key++;
+                                <tr>
+                                    <td>@key</td>
+                                    <td>@wishlist_product.Product.Name</td>
+                                    <td>@Html.Raw(@wishlist_product.Product.Description)</td>
+                                    <td>@wishlist_product.Product.Price.ToString("#,##0 VNĐ")</td>
+                                    <td>
+                                        <img src="@Url.Content("~/media/products/" + wishlist_product.Product.Image)" class="product-image" alt="@wishlist_product.Product.Name" />
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-remove delete-wishlist" data-product_id="@wishlist_product.ProductId">
+                                            <i class="fas fa-trash"></i> Xóa
+                                        </button>
+                                        <a asp-action="Details" asp-controller="Product" asp-route-Id="@wishlist_product.ProductId" class="btn btn-details">
+                                            <i class="fas fa-eye"></i> Chi tiết
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div class="empty-message">
+                    <h4>Danh sách yêu thích của bạn đang trống!</h4>
+                    <a asp-action="Index" asp-controller="Home" class="btn btn-primary">Tiếp tục mua sắm</a>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.delete-wishlist').click(function () {
+                var Id = $(this).data("product_id");
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("DeleteWishlist", "Home")",
+                    data: { Id: Id },
+                    success: function (result) {
+                        if (result.success) {
+                            Swal.fire("Success", result.message, "success").then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire("Error", result.message, "error");
+                        }
+                    },
+                    error: function () {
+                        Swal.fire("Error", "An error occurred while removing the product from the wishlist.", "error");
+                    }
+                });
+            });
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- Đảm bảo Font Awesome được bao gồm để sử dụng icon -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

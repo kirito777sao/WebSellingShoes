@@ -1,0 +1,307 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="HT-Shop Admin Dashboard">
+    <meta name="author" content="HT-Shop Team">
+    <title>@ViewData["title"] | HT-Shop | Admin Area</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Font Awesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.2.2/css/buttons.bootstrap5.min.css" />
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.min.css" rel="stylesheet">
+
+    <!-- Morris.js for Charts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fa;
+        }
+        /* Sidebar */
+        .sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #1e293b;
+            color: #fff;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+
+            .sidebar .nav-link {
+                color: #94a3b8;
+                padding: 12px 20px;
+                border-radius: 5px;
+                margin: 5px 10px;
+                transition: all 0.2s;
+            }
+
+                .sidebar .nav-link:hover,
+                .sidebar .nav-link.active {
+                    background: #3b82f6;
+                    color: #fff;
+                }
+
+                .sidebar .nav-link i {
+                    margin-right: 10px;
+                }
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        /* Navbar */
+        .topbar {
+            background: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 10px 20px;
+        }
+        /* Cards and Tables */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .table {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        /* Footer */
+        footer {
+            background: #fff;
+            padding: 15px;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+        }
+        /* Responsive */
+        media (max-width: 768px) {
+            .sidebar
+
+        {
+            max-width: 70px;
+            min-width: 70px;
+        }
+
+        .sidebar .nav-link span {
+            display: none;
+        }
+
+        .main-content {
+            margin-left: 70px;
+        }
+
+        }
+    </style>
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="~/images/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="~/images/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/images/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/images/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="~/images/ico/apple-touch-icon-57-precomposed.png">
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="p-4">
+            <h4 class="text-white mb-4">HT-Shop Admin</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="https://localhost:44383/"><i class="fas fa-home"></i> <span>HomePage</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Dashboard"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Product"><i class="fas fa-box"></i> <span>Manage Products</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Category"><i class="fas fa-list"></i> <span>Manage Categories</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Brand"><i class="fas fa-tag"></i> <span>Manage Brands</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Order" asp-action="Index"><i class="fas fa-shopping-cart"></i> <span>Manage Orders</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="User" asp-action="Index"><i class="fas fa-users"></i> <span>Manage Users</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="AppRoles"><i class="fas fa-user-shield"></i> <span>Manage Roles</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Slider"><i class="fas fa-images"></i> <span>Manage Sliders</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Contact"><i class="fas fa-envelope"></i> <span>Manage Contacts</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Shipping"><i class="fas fa-truck"></i> <span>Manage Shipping</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Coupon"><i class="fas fa-ticket-alt"></i> <span>Manage Coupons</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Review"><i class="fas fa-star"></i> <span>Manage Reviews</span></a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Topbar -->
+        <nav class="topbar d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-0">@ViewData["title"]</h5>
+            </div>
+            <div>
+                @* <a asp-action="UpdateAccount" asp-controller="Account" class="btn btn-outline-primary btn-sm"><i class="fas fa-user"></i> Profile</a> *@
+                @* <a asp-controller="Account" asp-action="Logout"  class="btn btn-outline-danger btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</a> *@
+            </div>
+        </nav>
+
+        <!-- Content -->
+        <section class="py-4">
+            <div class="container-fluid">
+                <partial name="_NotificationPartial" />
+                @RenderBody()
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="mb-0">© @DateTime.Now.Year HT-Shop. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Scripts -->
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.bootstrap5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.2.2/js/buttons.print.min.js"></script>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.17.2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- Custom Notification Script -->
+    <script>
+        $(function () {
+            var success = '@TempData["success"]';
+            var error = '@TempData["error"]';
+            if (success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: success
+                });
+            }
+            if (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error
+                });
+            }
+        });
+    </script>
+
+    <!-- DataTables Initialization -->
+    <script>
+        let table = new DataTable('#myTable', {
+            layout: {
+                topStart: {
+                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                }
+            }
+        });
+    </script>
+
+    <!-- Script to Handle Sidebar Active State -->
+    <script>
+        $(document).ready(function () {
+            // Get all sidebar links
+            const sidebarLinks = $('.sidebar .nav-link');
+
+            // Function to set the active state based on the current URL
+            function setActiveLink() {
+                // Extract the controller from the current URL
+                let path = window.location.pathname; // e.g., "/Dashboard" or "/Dashboard/Index"
+                let currentController = path.split('/')[1] || 'Home'; // Default to 'Home' if empty
+
+                // Remove any trailing "Index" or other action names
+                if (currentController.includes('Index')) {
+                    currentController = currentController.replace('Index', '');
+                }
+
+                // Remove any leading/trailing slashes and normalize
+                currentController = currentController.replace(/^\/|\/$/g, '');
+
+                // Get the stored active link from localStorage
+                let activeLink = localStorage.getItem('activeLink') || currentController;
+
+                // Set the active class based on the current controller
+                sidebarLinks.each(function () {
+                    const controller = $(this).attr('asp-controller');
+                    if (controller && controller.toLowerCase() === currentController.toLowerCase()) {
+                        sidebarLinks.removeClass('active'); // Remove active from all links
+                        $(this).addClass('active'); // Add active to the matching link
+                        localStorage.setItem('activeLink', controller); // Store the controller
+                    }
+                });
+            }
+
+            // Run on page load
+            setActiveLink();
+
+            // Handle click events on sidebar links
+            sidebarLinks.on('click', function (e) {
+                // Remove active class from all links
+                sidebarLinks.removeClass('active');
+
+                // Add active class to the clicked link
+                $(this).addClass('active');
+
+                // Store the controller of the clicked link in localStorage
+                const controller = $(this).attr('asp-controller');
+                if (controller) {
+                    localStorage.setItem('activeLink', controller);
+                }
+            });
+        });
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,113 @@
+﻿@model IEnumerable<ProductModel>
+@{
+    ViewData["Title"] = "HT-Shop - Online Store";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Paginate pager = ViewBag.Pager ?? new Paginate(0, 1, 9); // Đảm bảo pager luôn có giá trị
+    int pageNo = pager.CurrentPage;
+}
+
+<partial name="_SliderPartial" />
+
+<div class="row">
+    <div class="col-lg-3">
+        <partial name="_SidebarPartial" />
+    </div>
+    <div class="col-lg-9">
+        <h2 class="text-center mb-4">@ViewBag.Slug</h2>
+        @if (!Model.Any())
+        {
+            <p class="text-center">Không có sản phẩm nào để hiển thị.</p>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @foreach (var item in Model)
+                {
+                    <div class="col">
+                        <div class="card product-card">
+                            <div class="position-relative">
+                                <span class="badge bg-primary position-absolute top-0 start-0 m-2 brand-badge">@item.Brand.Name</span>
+                                <div class="image-container">
+                                    <a asp-action="Details" asp-controller="Product" asp-route-Id="@item.Id">
+                                        <img src="~/media/products/@item.Image" class="card-img-top product-image" alt="@item.Name" loading="lazy">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="card-body text-center">
+                                <span class="badge bg-danger mb-2">Best seller</span>
+                                <h5 class="card-title product-name">@item.Name</h5>
+                                <p class="text-muted small mb-1">@item.Category.Name</p>
+                                <p class="card-text text-primary fw-bold product-price">@item.Price.ToString("#,##0 VNĐ")</p>
+                            </div>
+                            @if (User.Identity?.IsAuthenticated ?? false)
+                            {
+                                <div class="card-footer bg-transparent border-0">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <button class="btn btn-outline-primary btn-sm add-btn-wishlist" data-product_id="@item.Id">
+                                            <i class="fas fa-heart"></i> Yêu thích
+                                        </button>
+                                        <button class="btn btn-outline-secondary btn-sm add-btn-compare" data-product_id="@item.Id">
+                                            <i class="fas fa-star"></i> So sánh
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- Phân trang được đặt bên ngoài vòng lặp -->
+            @if (pager.TotalItems > 0)
+            {
+                <div class="mt-4">
+                    <partial name="_Pagination" model="@pager" />
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.add-btn-wishlist').click(function () {
+                var id = $(this).data("product_id");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("AddWishlist", "Home")",
+                    data: { Id: id },
+                    success: function (result) {
+                        Swal.fire({
+                            icon: result.success ? 'success' : 'error',
+                            title: result.success ? 'Success' : 'Error',
+                            text: result.message
+                        });
+                    },
+                    error: function () {
+                        Swal.fire('Error', 'Failed to add to wishlist.', 'error');
+                    }
+                });
+            });
+
+            $('.add-btn-compare').click(function () {
+                var id = $(this).data("product_id");
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("AddCompare", "Home")",
+                    data: { Id: id },
+                    success: function (result) {
+                        Swal.fire({
+                            icon: result.success ? 'success' : 'error',
+                            title: result.success ? 'Success' : 'Error',
+                            text: result.message
+                        });
+                    },
+                    error: function () {
+                        Swal.fire('Error', 'Failed to add to compare.', 'error');
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,76 @@
+﻿@{
+    var currentUrl = Url.ActionContext.HttpContext.Request.Path;
+}
+
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-4 col-sm-12 mb-3 mb-md-0">
+                <label for="sort_by" class="form-label fw-bold"><i class="fas fa-sort me-1"></i> Sắp xếp theo</label>
+                <select class="form-select rounded-pill" id="sort_by" aria-label="Sort products">
+                    <option value="">Mặc định</option>
+                    <option value="@currentUrl?sort_by=price_increase">Giá tăng dần</option>
+                    <option value="@currentUrl?sort_by=price_decrease">Giá giảm dần</option>
+                    <option value="@currentUrl?sort_by=price_newest">Mới nhất</option>
+                    <option value="@currentUrl?sort_by=price_oldest">Cũ nhất</option>
+                </select>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <label for="amount" class="form-label fw-bold"><i class="fas fa-filter me-1"></i> Lọc theo giá</label>
+                <div class="input-group">
+                    <input type="text" id="amount" readonly class="form-control text-center" style="border: none; background: transparent; font-weight: 500;" aria-label="Price range">
+                </div>
+                <div id="slider-range" class="mt-3"></div>
+                <button type="button" name="locgia" data-current_url="@currentUrl" class="btn btn-primary btn-locgia mt-3 rounded-pill">
+                    <i class="fas fa-check me-1"></i> Lọc
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Custom jQuery UI Slider */
+    .ui-slider {
+        background: #e9ecef;
+        border: none;
+        height: 8px;
+        border-radius: 4px;
+    }
+
+    .ui-slider-range {
+        background: var(--primary-color);
+    }
+
+    .ui-slider-handle {
+        background: var(--primary-color);
+        border: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        top: -6px;
+        transition: all 0.3s ease;
+    }
+
+        .ui-slider-handle:hover, .ui-slider-handle:focus {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+    .form-select, .btn-locgia {
+        transition: all 0.3s ease;
+    }
+
+        .form-select:focus, .btn-locgia:focus {
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+    media (max-width: 576px) {
+        .btn-locgia
+
+    {
+        width: 100%;
+    }
+
+    }
+</style>

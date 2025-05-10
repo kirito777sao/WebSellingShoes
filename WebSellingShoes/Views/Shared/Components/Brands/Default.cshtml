@@ -1,0 +1,17 @@
+﻿@model IEnumerable<BrandModel>
+
+@foreach (var item in Model)
+{
+    @if (item.Status == 1) // Chỉ hiển thị nếu trạng thái là Hiển Thị
+    {
+        <div class="panel panel-default brand-item">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a asp-action="Index" asp-controller="Brand" asp-route-Slug="@item.Slug">
+                        <i class="fas fa-tag me-2"></i> @item.Name
+                    </a>
+                </h4>
+            </div>
+        </div>
+    }
+}
